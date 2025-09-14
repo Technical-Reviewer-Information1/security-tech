@@ -1,7 +1,9 @@
 import streamlit as st
 import time
 
-st.title("体験してわかる！ネットワークセキュリティの仕組み")
+st.set_page_config(page_title="安全を守るセキュリティ技術", layout="wide")
+
+st.title("安全を守るセキュリティ技術（pp.130-132）")
 
 st.caption("Created by Dit-Lab.(Daiki ITO)")
 st.caption("Supported by Tomoaki ATSUMI")
