@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安全を守るセキュリティ技術｜情報Ⅰ共通テスト対策問題集</title>
+<meta name="description" content="許可制か禁止制か、通信を通すか止めるか、ネットワークを分けるか。3つのしくみを自分で設定しながら違いをつかみましょう。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%2315181c%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-size=%2218%22 font-family=%22monospace%22 fill=%22%23fff%22 text-anchor=%22middle%22%3E01%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="inner">
+    <span class="eyebrow">第 4 章　情報通信ネットワーク　4-13</span>
+    <h1>安全を守るセキュリティ技術（pp.130-132）</h1>
+    <p class="lead">許可制か禁止制か、通信を通すか止めるか、ネットワークを分けるか。3つのしくみを自分で設定しながら違いをつかみましょう。</p>
+    <p class="credit">Created by Dit-Lab.(Daiki ITO)　/　Supported by Tomoaki ATSUMI</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="step" id="step1">
+    <h2><span class="no">STEP 1</span>コンテンツフィルタリング</h2>
+    <p class="desc"><span class="term" data-t="コンテンツフィルタリング">コンテンツフィルタリング</span>には、<strong>許可したものだけ通す</strong>ホワイトリスト方式と、<strong>禁止したものだけ止める</strong>ブラックリスト方式があります。</p>
+
+    <div class="panel">
+      <h3>リストの設定（クリックで切りかえ）</h3>
+      <div class="listedit" id="listEdit"></div>
+      <div class="seg" role="group" aria-label="方式" style="margin:14px 0">
+        <button id="mWhite" aria-pressed="true">ホワイトリスト方式</button>
+        <button id="mBlack" aria-pressed="false">ブラックリスト方式</button>
+        <button id="mBoth" aria-pressed="false">両方を並べて比べる</button>
+      </div>
+      <div class="tbl-scroll"><table class="tbl" id="filtTable"></table></div>
+      <div class="note" id="filtNote" style="margin-top:12px"></div>
+      <div class="note info" style="margin-top:12px">
+        <strong>ホワイトリスト方式</strong>＝リストにあるものだけアクセスできる（それ以外はすべて×）。安全だが手間がかかる。<br>
+        <strong>ブラックリスト方式</strong>＝リストにあるものだけアクセスできない（それ以外はすべて○）。手軽だが漏れが出る。<br>
+        <strong>同じリストでも、方式がちがえば結果は正反対になります。</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="step2">
+    <h2><span class="no">STEP 2</span>ファイアウォール</h2>
+    <p class="desc"><span class="term" data-t="ファイアウォール">ファイアウォール</span>は、<strong>外部との通信を通すか止めるか</strong>をルールで決めます。通信を1つずつ流して確かめましょう。</p>
+    <div class="panel">
+      <h3>ルール（上から順に確認し、最初に当てはまったものを適用）</h3>
+      <div class="tbl-scroll"><table class="tbl" id="ruleTable"></table></div>
+      <div class="btn-row" style="margin-top:12px">
+        <button class="btn primary" id="sendPkt">通信を1つ流す</button>
+        <button class="btn" id="send10">10個まとめて流す</button>
+        <button class="btn ghost" id="clearFw">記録を消す</button>
+      </div>
+      <div class="tbl-scroll" style="margin-top:12px"><table class="tbl" id="fwTable"></table></div>
+      <div class="note" id="fwNote" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <section class="step" id="step3">
+    <h2><span class="no">STEP 3</span>VLAN でネットワークを分ける</h2>
+    <p class="desc"><span class="term" data-t="VLAN">VLAN</span>は、<strong>1台のスイッチの中で論理的にネットワークを分ける</strong>技術です。2台を選んで、通信できるか確かめてください。</p>
+    <div class="panel">
+      <div id="vlanBox"></div>
+      <div class="btn-row" style="margin-top:12px">
+        <label style="font-size:.85rem;display:flex;align-items:center;gap:6px">
+          <input type="checkbox" id="vlanOn" checked> VLANを有効にする
+        </label>
+        <button class="btn ghost" id="clearSel">選択を消す</button>
+      </div>
+      <div class="note" id="vlanNote" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <section class="step" id="step4">
+    <h2><span class="no">STEP 4</span>確認クイズ</h2>
+    <div class="panel">
+      <div class="qhead">
+        <span class="badge" id="qProgress">1 / 1</span>
+        <span class="badge">正解 <span class="score" id="qScore">0</span></span>
+      </div>
+      <div class="card-q"><div class="q-scene" id="qText"></div></div>
+      <div class="choice4" id="qChoices"></div>
+      <div class="note" id="qFb" hidden style="margin-top:12px"></div>
+      <div class="btn-row" style="margin-top:12px">
+        <button class="btn primary" id="qNext" disabled>次の問題</button>
+        <button class="btn ghost" id="qReset">最初から</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="glossary">
+    <h2><span class="no">用語</span>この節で出てくることば</h2>
+    <div id="glossBox"></div>
+  </section>
+
+  <section class="step">
+    <h2><span class="no">まとめ</span>セキュリティ技術のポイント</h2>
+    <ul style="margin:0;padding-left:1.2em;color:var(--ink-2);font-size:.92rem;line-height:2.05">
+      <li>ホワイトリスト方式＝<strong>載っているものだけ許可</strong>。ブラックリスト方式＝<strong>載っているものだけ禁止</strong>。</li>
+      <li>同じリストでも方式がちがえば結果は<strong>正反対</strong>になる。</li>
+      <li>ファイアウォールは<strong>外部との通信を制御し、不正な侵入や攻撃を防ぐ</strong>。暗号化や速度最適化ではない。</li>
+      <li>VLANは<strong>同じネットワーク内を論理的に分ける</strong>技術。教員用と生徒用を分けるなど。</li>
+      <li>VLANで分けると通信が届かなくなるので、<strong>セキュリティの向上につながる</strong>。</li>
+    </ul>
+  </section>
+
+  <section class="step">
+    <h2><span class="no">活用</span>授業・探究での使い方</h2>
+    <div class="use-note">
+      <h3>授業で</h3>
+      <ul>
+        <li>STEP 1 でリストを設定し、同じ設定でも方式によって結果が真逆になることを見せる。</li>
+        <li>STEP 2 のファイアウォールは、ルールの順番で結果が変わることを実演できる。</li>
+        <li>STEP 3 のVLANは、学校の教員用・生徒用ネットワークの例として説明しやすい。</li>
+      </ul>
+      <h3 style="margin-top:12px">探究で</h3>
+      <ul>
+        <li>学校のフィルタリングがどちらの方式か調べ、その理由を考える。</li>
+        <li>ホワイトリスト方式とブラックリスト方式の長所短所を、運用の手間の面から比較する。</li>
+        <li>自分の家庭のルータの設定画面を見て、どんな保護機能があるか調べる。</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="app-footer">
+  情報Ⅰ 共通テスト対策問題集（技術評論社）連動Webアプリ　/　Created by Dit-Lab.(Daiki ITO)　/　Supported by Tomoaki ATSUMI
+</footer>
+
+<script src="js/tools.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/terms.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
