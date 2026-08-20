@@ -225,6 +225,12 @@
     $('qScore').textContent = qScore; $('qNext').disabled = false;
   }
 
+  /* 本文の問題 */
+  function drawBook() {
+    if (!document.getElementById('bookBox')) return;
+    window.Quiz.choice('bookBox', 'bookNote', [{"k": "ア", "q": "リスト（カテゴリ：情報／サイト：A・C）のとき、ホワイトリスト方式での閲覧結果の組合せは。（A:数学 B:SNS C:ゲーム D:情報）", "ch": ["A○ B○ C× D×", "A× B○ C× D×", "A× B○ C× D○", "A○ B× C○ D○"], "a": 3, "why": "ホワイトリストは<strong>「載っているものだけ許可」</strong>。サイトAとCはリストにあるので○、カテゴリ「情報」のDも○。載っていないBだけ×です。"}, {"k": "イ", "q": "同じリストで、ブラックリスト方式での閲覧結果の組合せは。", "ch": ["A○ B○ C× D×", "A× B○ C× D×", "A× B○ C× D○", "A○ B× C○ D○"], "a": 1, "why": "ブラックリストは<strong>「載っているものだけ禁止」</strong>。A・C・（カテゴリ情報の）Dが×で、載っていないBだけ○です。STEP 1 で切りかえて確かめられます。"}, {"k": "ウ", "q": "ファイアウォールに関する記述として最も適当なものは。", "ch": ["ネットワーク内のすべてのデータを改ざんや盗聴されないように暗号化する", "内部ネットワークの利用状況をクラウド上で可視化し、通信速度を最適化する", "外部ネットワークとの通信を制御し、不正な侵入や攻撃を防ぐ", "ネットワーク機器の通信障害を自動的に検出し、修復する"], "a": 2, "why": "内と外の境目に置いて、通してよい通信だけを通す「関所」です。暗号化はSSL/TLSの役割で、別のものです。"}, {"k": "エ", "q": "VLANに関する記述として最も適当なものは。", "ch": ["異なるネットワークセグメント間で通信が可能になる", "ネットワークのトラフィックを分離できるが、セキュリティ向上にはつながらない", "同一ネットワーク内であっても「教員用」と「生徒用」のように論理的にネットワークを分割する技術である", "スイッチングハブで、特定のポート番号の通信だけを遮断する技術である"], "a": 2, "why": "配線はそのままで<strong>論理的に</strong>分ける技術です。分けることで見えなくなるので、セキュリティの向上にもつながります。STEP 3 で確かめられます。"}], "本文の答えは【ア】③　【イ】①　【ウ】②　【エ】② です。");
+  }
+
   function init() {
     ['mWhite', 'mBlack', 'mBoth'].forEach((id, i) => $(id).addEventListener('click', () => {
       fmode = ['white', 'black', 'both'][i]; drawFilter();
@@ -238,6 +244,7 @@
     $('qReset').addEventListener('click', startQuiz);
     window.Terms.glossary($('glossBox'), ['コンテンツフィルタリング', 'ファイアウォール', 'VLAN', 'ルータ', 'スイッチングハブ', 'SSL/TLS', 'LAN']);
     drawFilter(); drawRules(); sendPkt(6); drawVlan(); startQuiz();
+    drawBook();
     window.Terms.attach();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
