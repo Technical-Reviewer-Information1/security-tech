@@ -245,6 +245,32 @@
     window.Terms.glossary($('glossBox'), ['コンテンツフィルタリング', 'ファイアウォール', 'VLAN', 'ルータ', 'スイッチングハブ', 'SSL/TLS', 'LAN']);
     drawFilter(); drawRules(); sendPkt(6); drawVlan(); startQuiz();
     drawBook();
+    Worksheet.make('wsBox', {
+      name: 'security-tech',
+      fields: [
+        { id: 'k1', label: '① 守りたいもの', hint: '何を守るのかをはっきりさせる。', rows: 2, ph: '例：学校のネットワークにある成績データと、生徒の個人情報' },
+        { id: 'k2', label: '② 想定される脅威', hint: '外部からの侵入、内部の持ち出し、なりすまし、盗み見など。', rows: 3,
+          ph: '例：外部からの不正アクセス／共用PCにログインしたままの離席' },
+        { id: 'k3', label: '③ 使われている技術', hint: 'フィルタリング／ファイアウォール／VLAN／暗号化／認証。', rows: 3,
+          ph: '例：校内Wi-Fiは教員用と生徒用でVLAN分割。有害サイトはフィルタリング' },
+        { id: 'k4', label: '④ どの脅威に、どの技術が対応するか', hint: '②と③を線でつなぐつもりで。', rows: 3,
+          ph: '例：外部からの侵入→ファイアウォール／のぞき見→暗号化／持ち出し→アクセス権の設定' },
+        { id: 'k5', label: '⑤ 技術だけでは防げないこと', hint: '運用・人の行動で守る部分。', rows: 3,
+          ph: '例：パスワードの使い回し、画面を開いたままの離席、写真での持ち出し' },
+        { id: 'k6', label: '⑥ 自分たちで決める運用ルール', hint: '守れる形で1つ。', rows: 2, ph: '例：共用PCは離席時に必ずロックする（Windowsキー＋L）' }
+      ],
+      build: function (v, e) {
+        return '<h4>セキュリティ点検シート</h4><dl>' +
+          '<dt>① 守りたいもの</dt><dd>' + e(v.k1) + '</dd>' +
+          '<dt>② 想定される脅威</dt><dd>' + e(v.k2) + '</dd>' +
+          '<dt>③ 使われている技術</dt><dd>' + e(v.k3) + '</dd>' +
+          '<dt>④ 脅威と技術の対応</dt><dd>' + e(v.k4) + '</dd>' +
+          '<dt>⑤ 技術で防げないこと</dt><dd>' + e(v.k5) + '</dd>' +
+          '<dt>⑥ 運用ルール</dt><dd>' + e(v.k6) + '</dd></dl>';
+      },
+      note: '⑤が書けることが大切です。情報セキュリティは<strong>技術・運用・人</strong>の3つで成り立ちます。'
+    });
+
     window.Terms.attach();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
